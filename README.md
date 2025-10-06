@@ -21,7 +21,14 @@ Many debuggers, like `gdb` use this syscall for attach the debugger to the targe
 This file contains information about the process with the relevant PID. One of them is the `TracerPID` parameter.
 When a process is running under debugger, the `TracerPID` parameter contain the PID of the parent process - the debugger. Otherwise, it will contain `0`.
 
-## Usage
-`python3 ./ladd.py {filepath}`
 
 Copyright (c) 2022 Barak Aharoni.  All Rights Reserved.
+
+
+TODO:
+1. build and run the project using WSL
+2. change tester.c to be a differnt source in cpp, like clac, etc...
+3. build and run the new repository
+4. debug the program id using gdb while the anti-debbuger is on
+5. create a report about the changes with screenshots during the whole stages.
+6. try to bypass the ladd program using gdb -BONUS
