@@ -2,10 +2,10 @@ CC = gcc
 CFLAGS = -fPIC -Wall
 
 LIBRARY = libladd.so
-TEST_PROGRAM = tester
+TEST_PROGRAM = Calc
 
 LIB_SRC = ladd.c
-TEST_SRC = tester.c
+TEST_SRC = calc.cpp
 
 all: $(LIBRARY) $(TEST_PROGRAM)
 
