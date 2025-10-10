@@ -1,21 +1,29 @@
-CC = g++
-CFLAGS = -fPIC -Wall
+C_SRCS = ladd.c
+CXX_SRCS = calc.cpp
 
-LIBRARY = libladd.so
-TEST_PROGRAM = Calc
+C_OBJS = $(C_SRCS:.c=.o)
+CXX_OBJS = $(CXX_SRCS:.cpp=.o)
 
-LIB_SRC = ladd.c
-TEST_SRC = calc.cpp
+LIB = libladd.so
+BIN = Calc
 
-all: $(LIBRARY) $(TEST_PROGRAM)
+CFLAGS = -fPIC -Wall -g
+CXXFLAGS = -fPIC -Wall -g
 
-$(LIBRARY): $(LIB_SRC)
-	$(CC) $(CFLAGS) -shared -o $@ $^
+all: $(LIB) $(BIN)
 
-$(TEST_PROGRAM): $(TEST_SRC)
-	$(CC) $(CFLAGS) -o $@ $^ -ldl
+$(LIB): $(C_OBJS)
+	gcc $(CFLAGS) -shared -o $@ $^
+
+$(BIN): $(CXX_OBJS)
+	g++ $(CXXFLAGS) -o $@ $^ -ldl
+
+%.o: %.c
+	gcc $(CFLAGS) -c $< -o $@
+
+%.o: %.cpp
+	g++ $(CXXFLAGS) -c $< -o $@
+
 
 clean:
-	rm -f $(LIBRARY) $(TEST_PROGRAM)
-
-.PHONY: all clean
+	rm -f $(C_OBJS) $(CXX_OBJS) $(LIB) $(BIN)
