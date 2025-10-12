@@ -10,7 +10,8 @@ Linux Anti-Debugging Detection Tool
     |________||____| |____||______.'|______.'                 
 
 ```
-
+Read some more about my report on this project in my Medium account:
+https://medium.com/@yagilaharoni/linux-anti-debugging-detection-tool-linkage-with-my-code
 ## LD_PRELOAD environment variable
 This environment variable is loaded before every library in the system (including the C runtime, libc.so). Thou, malwares can use it, by loading themselves and gain persistence using a command like `export LD_PRELOAD=/malware_path`.
 
@@ -25,10 +26,3 @@ When a process is running under debugger, the `TracerPID` parameter contain the 
 Copyright (c) 2022 Barak Aharoni.  All Rights Reserved.
 
 
-TODO:
-1. build and run the project using WSL
-2. change tester.c to be a differnt source in cpp, like clac, etc...
-3. build and run the new repository
-4. debug the program id using gdb while the anti-debbuger is on
-5. create a report about the changes with screenshots during the whole stages.
-6. try to bypass the ladd program using gdb -BONUS
