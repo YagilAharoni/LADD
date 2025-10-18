@@ -2,6 +2,7 @@
 #include <cmath>
 #include <dlfcn.h>
 #include <stdio.h>
+#include <unistd.h>
 
 using namespace std;
 int main() {
@@ -15,6 +16,8 @@ int main() {
 
     
     printf("Starting calculator...\n");
+	printf("waiting 5 seconds... \n")
+	sleep(5)
 	char op;
 	double num1;
 	double num2;
@@ -28,19 +31,19 @@ int main() {
 	switch (op) {
 		case '+' :
 			result = num1 + num2;
-			cout << result << "/n";
+			cout << result << "\n";
 			break;
 		case '-':
 			result = num1 - num2;
-			cout << result << "/n";
+			cout << result << "\n";
 			break;
 		case '*':
 			result = num1 * num2;
-			cout << result << "/n";
+			cout << result << "\n";
 			break;
 		case '/':
 			result = num1 / num2;
-			cout << result << "/n";
+			cout << result << "\n";
 			break;
 		default:
 			cout << " please enter only one of the op above:";
