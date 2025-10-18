@@ -8,11 +8,13 @@ int main() {
 	void *handle = dlopen("./libladd.so", RTLD_NOW | RTLD_GLOBAL);
     if (!handle) {
         fprintf(stderr, "Failed to load libladd.so: %s\n", dlerror());
-        return 1;
+      
+    } else {
+        fprintf(stderr, "libladd.so loaded successfully\n");
     }
 
-    // The constructor in ladd.so will run automatically
-    printf("libladd.so loaded successfully\n");
+    
+    printf("Starting calculator...\n");
 	char op;
 	double num1;
 	double num2;
