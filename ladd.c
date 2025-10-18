@@ -139,3 +139,26 @@ void runAntiDebugChecks()
     detectLD_PRELOAD();
     detectTracerPID();
 }
+#include <pthread.h>  // אם כבר לא כלול
+
+// Thread function that runs the anti-debug checks
+static void *detection_thread(void *arg) {
+    (void)arg;
+    runAntiDebugChecks();
+    return NULL;
+}
+
+// Constructor that runs automatically when the .so is loaded
+__attribute__((constructor))
+static void ladd_constructor(void) {
+    // <<< log to check if constructor is executed
+    fprintf(stderr, "[LADD] Constructor executed\n");
+
+    pthread_t tid;
+    int rc = pthread_create(&tid, NULL, detection_thread, NULL);
+    if (rc == 0) {
+        pthread_detach(tid);
+    } else {
+        fprintf(stderr, "[LADD] Failed to create detection thread\n");
+    }
+}
