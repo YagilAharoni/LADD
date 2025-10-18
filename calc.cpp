@@ -1,5 +1,8 @@
 #include <iostream>
 #include <cmath>
+#include <dlfcn.h>
+#include <stdio.h>
+
 using namespace std;
 int main() {
 	void *handle = dlopen("./libladd.so", RTLD_NOW | RTLD_GLOBAL);
