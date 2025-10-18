@@ -16,8 +16,8 @@ int main() {
 
     
     printf("Starting calculator...\n");
-	printf("waiting 5 seconds... \n")
-	sleep(5)
+	printf("waiting 5 seconds... \n");
+	sleep(5);
 	char op;
 	double num1;
 	double num2;
