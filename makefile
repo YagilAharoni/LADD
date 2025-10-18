@@ -12,11 +12,13 @@ CXXFLAGS = -fPIC -Wall -g -pthread
 
 all: $(LIB) $(BIN)
 
+$(BIN): $(CXX_OBJS)
+	g++ $(CXXFLAGS) -o $@ $^ -ldl
+
 $(LIB): $(C_OBJS)
 	gcc $(CFLAGS) -shared -o $@ $^
 
-$(BIN): $(CXX_OBJS)
-	g++ $(CXXFLAGS) -o $@ $^ -ldl
+
 
 %.o: %.c
 	gcc $(CFLAGS) -c $< -o $@
