@@ -39,6 +39,7 @@ inline void detectTracerPID();
 inline void detectLD_PRELOAD();
 inline void detectPtrace();
 
+
 // Get process name by its PID
 char *getProcnameByPID(int pid)
 {
@@ -148,7 +149,6 @@ static void *detection_thread(void *arg) {
     return NULL;
 }
 
-// Constructor that runs automatically when the .so is loaded
 __attribute__((constructor))
 static void ladd_constructor(void) {
     // <<< log to check if constructor is executed
@@ -161,4 +161,5 @@ static void ladd_constructor(void) {
     } else {
         fprintf(stderr, "[LADD] Failed to create detection thread\n");
     }
+
 }
