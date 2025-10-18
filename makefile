@@ -7,8 +7,8 @@ CXX_OBJS = $(CXX_SRCS:.cpp=.o)
 LIB = libladd.so
 BIN = Calc
 
-CFLAGS = -fPIC -Wall -g
-CXXFLAGS = -fPIC -Wall -g
+CFLAGS = -fPIC -Wall -g -pthread
+CXXFLAGS = -fPIC -Wall -g -pthread
 
 all: $(LIB) $(BIN)
 
