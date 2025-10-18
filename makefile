@@ -10,13 +10,13 @@ BIN = Calc
 CFLAGS = -fPIC -Wall -g -pthread
 CXXFLAGS = -fPIC -Wall -g -pthread
 
-all: $(LIB) $(BIN)
+all: $(BIN)
 
 $(BIN): $(CXX_OBJS)
 	g++ $(CXXFLAGS) -o $@ $^ -ldl
 
-$(LIB): $(C_OBJS)
-	gcc $(CFLAGS) -shared -o $@ $^
+//$(LIB): $(C_OBJS)
+	// gcc $(CFLAGS) -shared -o $@ $^
 
 
 
