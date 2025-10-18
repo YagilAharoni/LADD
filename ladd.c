@@ -23,6 +23,7 @@
 #include <ctype.h>
 #include <regex.h>
 #include <sys/ptrace.h>
+#include "ladd.h"
 
 #ifndef PTRACE_TRACEME
 #define PTRACE_TRACEME 0
