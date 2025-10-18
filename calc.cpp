@@ -6,15 +6,7 @@
 
 using namespace std;
 int main() {
-	void *handle = dlopen("./libladd.so", RTLD_NOW | RTLD_GLOBAL);
-    if (!handle) {
-        fprintf(stderr, "Failed to load libladd.so: %s\n", dlerror());
-      
-    } else {
-        fprintf(stderr, "libladd.so loaded successfully\n");
-    }
-
-    
+	
     printf("Starting calculator...\n");
 	printf("waiting 5 seconds... \n");
 	sleep(5);
