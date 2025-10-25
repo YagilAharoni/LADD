@@ -35,7 +35,7 @@ $(TARGET_LIB): $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Compile rule for the C source
-ladd.o: LADD/ladd.c
+ladd.o: ladd.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean
