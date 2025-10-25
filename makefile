@@ -30,11 +30,12 @@ $(TARGET_EXEC): $(EXEC_OBJ) $(TARGET_LIB)
 $(TARGET_LIB): $(LIB_OBJ)
 	$(CC) -shared -o $@ $(LIB_OBJ)
 
-# Compile rules
+# Compile rule for main C++ file
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-%.o: %.c
+# Explicit rule for the C source inside ladd/
+ladd/%.o: ladd/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean
