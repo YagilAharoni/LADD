@@ -13,7 +13,7 @@ TARGET_LIB  = libladd.so
 
 # Source files
 EXEC_SRC = calc.cpp
-LIB_SRC  = ladd/ladd.c
+LIB_SRC  = LADD/ladd.c
 
 # Object files
 EXEC_OBJ = $(EXEC_SRC:.cpp=.o)
@@ -35,7 +35,7 @@ $(TARGET_LIB): $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Compile rule for the C source
-ladd.o: ladd/ladd.c
+ladd.o: LADD/ladd.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean
