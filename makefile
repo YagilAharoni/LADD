@@ -17,7 +17,7 @@ LIB_SRC  = ladd/ladd.c
 
 # Object files
 EXEC_OBJ = $(EXEC_SRC:.cpp=.o)
-LIB_OBJ  = $(LIB_SRC:.c=.o)
+LIB_OBJ  = ladd.o
 
 # Default target
 all: $(TARGET_LIB) $(TARGET_EXEC)
@@ -34,8 +34,8 @@ $(TARGET_LIB): $(LIB_OBJ)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Explicit rule for the C source inside ladd/
-ladd/%.o: ladd/%.c
+# Compile rule for the C source
+ladd.o: ladd/ladd.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean
