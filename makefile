@@ -1,47 +1,42 @@
-# Compiler
+# Compilers
+CC  = gcc
 CXX = g++
 
-# Compiler flags
+# Flags
+CFLAGS   = -Wall -fPIC -I./
 CXXFLAGS = -std=c++11 -Wall -I./
+LDFLAGS  = -L. -Wl,-rpath,. -lladd
 
-# Flags for building Position Independent Code (needed for shared library)
-PICFLAGS = -fPIC
-
-# Linker flags for the executable
-LDFLAGS = -L. -lladd -Wl,-rpath,.
-
-# Target names
+# Targets
 TARGET_EXEC = calc
-TARGET_LIB = libladd.so
+TARGET_LIB  = libladd.so
 
 # Source files
-# ---> This is the fix: Look for ladd.cpp
 EXEC_SRC = calc.cpp
-LIB_SRC = ladd/ladd.cpp
+LIB_SRC  = ladd/ladd.c
 
 # Object files
 EXEC_OBJ = $(EXEC_SRC:.cpp=.o)
-LIB_OBJ = $(LIB_SRC:.cpp=.o)
+LIB_OBJ  = $(LIB_SRC:.c=.o)
 
-# Default target: build the executable
-all: $(TARGET_EXEC)
+# Default target
+all: $(TARGET_LIB) $(TARGET_EXEC)
 
-# Rule to build the executable
+# Rule to build the executable (C++)
 $(TARGET_EXEC): $(EXEC_OBJ) $(TARGET_LIB)
-	$(CXX) $(CXXFLAGS) -o $(TARGET_EXEC) $(EXEC_OBJ) $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) -o $@ $(EXEC_OBJ) $(LDFLAGS)
 
-# Rule to build the shared library
+# Rule to build the shared library (C)
 $(TARGET_LIB): $(LIB_OBJ)
-	$(CXX) -shared -o $(TARGET_LIB) $(LIB_OBJ)
+	$(CC) -shared -o $@ $(LIB_OBJ)
 
-# Rule to compile the executable's object file
-$(EXEC_OBJ): $(EXEC_SRC)
-	$(CXX) $(CXXFLAGS) -c $(EXEC_SRC) -o $(EXEC_OBJ)
+# Compile rules
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Rule to compile the library's object file (with -fPIC)
-$(LIB_OBJ): $(LIB_SRC)
-	$(CXX) $(CXXFLAGS) $(PICFLAGS) -c $(LIB_SRC) -o $(LIB_OBJ)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean target
+# Clean
 clean:
 	rm -f $(EXEC_OBJ) $(LIB_OBJ) $(TARGET_EXEC) $(TARGET_LIB)

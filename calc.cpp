@@ -5,6 +5,10 @@
 #include <unistd.h>
 
 using namespace std;
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int main() {
 	void *handle = dlopen("./libladd.so", RTLD_NOW | RTLD_GLOBAL);
     if (!handle) {
