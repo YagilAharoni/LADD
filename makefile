@@ -13,7 +13,7 @@ TARGET_LIB  = libladd.so
 
 # Source files
 EXEC_SRC = calc.cpp
-LIB_SRC  = LADD/ladd.c
+LIB_SRC  = ladd.c
 
 # Object files
 EXEC_OBJ = $(EXEC_SRC:.cpp=.o)
