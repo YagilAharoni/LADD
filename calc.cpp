@@ -31,19 +31,19 @@ int main() {
 	switch (op) {
 		case '+' :
 			result = num1 + num2;
-			cout << result << "\n";
+			cout << "the answer is: " << result << "\n";
 			break;
 		case '-':
 			result = num1 - num2;
-			cout << result << "\n";
+			cout << "the answer is: " << result << "\n";
 			break;
 		case '*':
 			result = num1 * num2;
-			cout << result << "\n";
+			cout << "the answer is: " << result << "\n";
 			break;
 		case '/':
 			result = num1 / num2;
-			cout << result << "\n";
+			cout << "the answer is: " << result << "\n";
 			break;
 		default:
 			cout << " please enter only one of the op above:";
