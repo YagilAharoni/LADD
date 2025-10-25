@@ -14,16 +14,16 @@ PICFLAGS = -fPIC
 LDFLAGS = -L. -lladd -Wl,-rpath,.
 
 # Target names
-TARGET_EXEC = calc
+TARGET_EXEC = Calc
 TARGET_LIB = libladd.so
 
 # Source files (Using .cpp for the library source)
 EXEC_SRC = calc.cpp
-LIB_SRC = ladd/ladd.cpp
+LIB_SRC = ladd/ladd.c
 
 # Object files
 EXEC_OBJ = $(EXEC_SRC:.cpp=.o)
-LIB_OBJ = $(LIB_SRC:.cpp=.o)
+LIB_OBJ = $(LIB_SRC:.c=.o)
 
 # Default target: build the executable
 all: $(TARGET_EXEC)
