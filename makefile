@@ -3,13 +3,11 @@ CC  = gcc
 CXX = g++
 
 # Flags
-CFLAGS   = -Wall -fPIC -I./
+CFLAGS   = -Wall -I./
 CXXFLAGS = -std=c++11 -Wall -I./
-LDFLAGS  = -L. -Wl,-rpath,. -lladd
 
-# Targets
+# Target
 TARGET_EXEC = calc
-TARGET_LIB  = libladd.so
 
 # Source files
 EXEC_SRC = calc.cpp
@@ -17,27 +15,23 @@ LIB_SRC  = ladd.c
 
 # Object files
 EXEC_OBJ = $(EXEC_SRC:.cpp=.o)
-LIB_OBJ  = ladd.o
+LIB_OBJ  = $(LIB_SRC:.c=.o)
 
 # Default target
-all: $(TARGET_LIB) $(TARGET_EXEC)
+all: $(TARGET_EXEC)
 
-# Rule to build the executable (C++)
-$(TARGET_EXEC): $(EXEC_OBJ) $(TARGET_LIB)
-	$(CXX) $(CXXFLAGS) -o $@ $(EXEC_OBJ) $(LDFLAGS)
+# Build executable (link all objects together)
+$(TARGET_EXEC): $(EXEC_OBJ) $(LIB_OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $(EXEC_OBJ) $(LIB_OBJ)
 
-# Rule to build the shared library (C)
-$(TARGET_LIB): $(LIB_OBJ)
-	$(CC) -shared -o $@ $(LIB_OBJ)
-
-# Compile rule for main C++ file
+# Compile C++ files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Compile rule for the C source
+# Compile C files
 ladd.o: ladd.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean
 clean:
-	rm -f $(EXEC_OBJ) $(LIB_OBJ) $(TARGET_EXEC) $(TARGET_LIB)
+	rm -f $(EXEC_OBJ) $(LIB_OBJ) $(TARGET_EXEC)
