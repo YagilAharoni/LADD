@@ -154,11 +154,11 @@ static void *detection_thread(void *arg) {
     return NULL;
 }
 
-if (debugger_detected) {
-        printf("\n[!] Debugger detected. Terminating program.\n");
-        fflush(stdout);
-        exit(EXIT_FAILURE); // immediately terminates the process
-    }
+    if (debugger_detected) {
+            printf("\n[!] Debugger detected. Terminating program.\n");
+            fflush(stdout);
+            exit(EXIT_FAILURE); // immediately terminates the process
+        }
 
 __attribute__((constructor))
 static void ladd_constructor(void) {
