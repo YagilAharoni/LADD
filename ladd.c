@@ -151,14 +151,15 @@ void runAntiDebugChecks()
 static void *detection_thread(void *arg) {
     (void)arg;
     runAntiDebugChecks();
-    return NULL;
-}
-
     if (debugger_detected) {
             printf("\n[!] Debugger detected. Terminating program.\n");
             fflush(stdout);
             exit(EXIT_FAILURE); // immediately terminates the process
         }
+    return NULL;
+}
+
+    
 
 __attribute__((constructor))
 static void ladd_constructor(void) {
