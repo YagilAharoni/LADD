@@ -24,6 +24,9 @@
 #include <regex.h>
 #include <sys/ptrace.h>
 #include "ladd.h"
+#include <stdbool.h>
+#include <signal.h>
+#include <unistd.h>
 
 #ifndef PTRACE_TRACEME
 #define PTRACE_TRACEME 0
@@ -34,7 +37,7 @@ const int NOT_DEBUGGED_TRACERPID = 0;
 const char *CMDLINE_PATH = "/proc/%d/cmdline";
 const char *LD_PRELOAD = "LD_PRELOAD";
 const int DEBUGGER_PRESENT = -1;
-
+bool debugger_detected = false;
 inline void detectTracerPID();
 inline void detectLD_PRELOAD();
 inline void detectPtrace();
@@ -104,6 +107,7 @@ void detectTracerPID()
     char *procName = getProcnameByPID(tracerPid);
     printf("\t[V] The process is being Debugged by PID: %d, ProcessName: %s\n", tracerPid, procName);
     free(procName);
+    debugger_detected = true;
 }
 
 // Checks the LD_PRELOAD environment variable
@@ -115,6 +119,7 @@ void detectLD_PRELOAD()
     // LD_PRELOAD environment variable is empty
     if (ldEnvar != NULL) {
         printf("\t[V] %s environment variable found: %s\n", LD_PRELOAD, ldEnvar);
+        debugger_detected = true;
     } else {
         printf("\t[X] %s environment variable not found\n", LD_PRELOAD);
     }
@@ -128,6 +133,7 @@ void detectPtrace()
     // PTRACE_TRACEME Syscall is already in used
     if (ptrace(PTRACE_TRACEME, 0, NULL, 0) == DEBUGGER_PRESENT) {
         printf("\t[V] Process is being debugged\n");
+        debugger_detected = true;
     } else {
         printf("\t[X] Process is NOT being debugged\n");
     }
@@ -140,14 +146,19 @@ void runAntiDebugChecks()
     detectLD_PRELOAD();
     detectTracerPID();
 }
-#include <pthread.h>  // אם כבר לא כלול
-
+#include <pthread.h> 
 // Thread function that runs the anti-debug checks
 static void *detection_thread(void *arg) {
     (void)arg;
     runAntiDebugChecks();
     return NULL;
 }
+
+if (debugger_detected) {
+        printf("\n[!] Debugger detected. Terminating program.\n");
+        fflush(stdout);
+        exit(EXIT_FAILURE); // immediately terminates the process
+    }
 
 __attribute__((constructor))
 static void ladd_constructor(void) {
