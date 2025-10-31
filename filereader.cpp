@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdio.h>
+#include <unistd.h>
 
 void copyFileWithHeader(const std::string& sourceFilename, std::ofstream& outputFile) {
     std::ifstream inputFile(sourceFilename);
@@ -26,6 +28,8 @@ void copyFileWithHeader(const std::string& sourceFilename, std::ofstream& output
 
 
 int main() {
+    std::cout << "####Starting the program####" << std::endl;
+    sleep(3);
     std::string configFilename = "config.env";
     std::string outputFilename = "output.txt"; 
 

@@ -20,7 +20,7 @@ LIB_OBJ  = $(LIB_SRC:.c=.o)
 # Default target
 all: $(TARGET_EXEC)
 
-# Build executable (link all objects together)
+# Build executable 
 $(TARGET_EXEC): $(EXEC_OBJ) $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $(EXEC_OBJ) $(LIB_OBJ)
 
