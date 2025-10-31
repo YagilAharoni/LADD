@@ -63,6 +63,6 @@ int main() {
     inputFile.close();
     outputFile.close();
 
-    std::cout << "Successfully copied '" << inputFilename << "' (from config) to '" << outputFilename << "' (hard-coded)" << std::endl;
+    std::cout << "Successfully copied '" << inputFilename << "' (from config) to '" << outputFilename << std::endl;
     return 0;
 }
