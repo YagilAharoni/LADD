@@ -1,68 +1,65 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <dlfcn.h>
-#include <stdio.h>
-#include <unistd.h>
 
-// This function reads the source filename from config.txt
-std::string getSourceFilename() {
-    std::string configFilename = "config.env";
-    std::ifstream configFile(configFilename);
-
-    if (!configFile.is_open()) {
-        std::cerr << "Error: Could not open config file '" << configFilename << "'" << std::endl;
-        return "";
-    }
-
-    std::string sourceFilename;
-    if (std::getline(configFile, sourceFilename)) {
-        configFile.close();
-        if (sourceFilename.empty()) {
-             std::cerr << "Error: Config file is empty." << std::endl;
-             return "";
-        }
-        return sourceFilename; 
-    } else {
-        std::cerr << "Error: Config file '" << configFilename << "' is empty." << std::endl;
-        configFile.close();
-        return "";
-    }
-}
-
-
-int main() {
-    std::string outputFilename = "output.txt";
-
-    std::string inputFilename = getSourceFilename();
-    if (inputFilename.empty()) {
-        std::cerr << "Could not determine source filename from config." << std::endl;
-        return 1; // Exit
-    }
-
-    // Open the source file (from config)
-    std::ifstream inputFile(inputFilename);
+void copyFileWithHeader(const std::string& sourceFilename, std::ofstream& outputFile) {
+   
+    std::ifstream inputFile(sourceFilename);
     if (!inputFile.is_open()) {
-        std::cerr << "Error: Could not open source file '" << inputFilename << "'" << std::endl;
-        return 1;
+        std::cerr << "  -> Error: Could not open source file '" << sourceFilename << "'" << std::endl;
+        return; 
     }
 
-    // Open the hard-coded destination file
-    std::ofstream outputFile(outputFilename);
-    if (!outputFile.is_open()) {
-        std::cerr << "Error: Could not open destination file '" << outputFilename << "'" << std::endl;
-        inputFile.close();
-        return 1;
-    }
+    
+    outputFile << "========================================\n";
+    outputFile << "=== Content from file: " << sourceFilename << " ===\n";
+    outputFile << "========================================\n";
 
+    
     std::string line;
     while (std::getline(inputFile, line)) {
         outputFile << line << std::endl;
     }
 
+    
+    outputFile << "\n";
+    
     inputFile.close();
-    outputFile.close();
-
-    std::cout << "Successfully copied '" << inputFilename << "' (from config) to '" << outputFilename << std::endl;
-    return 0;
+    std::cout << "  -> Successfully copied: " << sourceFilename << std::endl;
 }
+
+
+int main() {
+    std::string configFilename = "config.env";
+    std::string outputFilename = "output.txt"; 
+
+    
+    std::ifstream configFile(configFilename);
+    if (!configFile.is_open()) {
+        std::cerr << "Error: Could not open config file '" << configFilename << "'" << std::endl;
+        return 1;
+    }
+
+    std::ofstream outputFile(outputFilename, std::ios::app); 
+    if (!outputFile.is_open()) {
+        std::cerr << "Error: Could not open destination file '" << outputFilename << "'" << std::endl;
+        configFile.close();
+        return 1;
+    }
+
+    std::cout << "Starting to process files listed in '" << configFilename << "'..." << std::endl;
+
+    std::string sourceFileFromConfig;
+    int filesProcessed = 0;
+
+  
+    while (std::getline(configFile, sourceFileFromConfig)) {
+        
+        if (sourceFileFromConfig.empty()) {
+            continue;
+        }
+
+        std::cout << "Processing: " << sourceFileFromConfig << std::endl;
+        
+        //Call the helper function that performs the copy
+        copyFileWithHeader(sourceFileFromConfig
