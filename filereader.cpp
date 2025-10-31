@@ -3,25 +3,21 @@
 #include <string>
 
 void copyFileWithHeader(const std::string& sourceFilename, std::ofstream& outputFile) {
-   
     std::ifstream inputFile(sourceFilename);
     if (!inputFile.is_open()) {
         std::cerr << "  -> Error: Could not open source file '" << sourceFilename << "'" << std::endl;
         return; 
     }
 
-    
     outputFile << "========================================\n";
     outputFile << "=== Content from file: " << sourceFilename << " ===\n";
     outputFile << "========================================\n";
 
-    
     std::string line;
     while (std::getline(inputFile, line)) {
         outputFile << line << std::endl;
     }
 
-    
     outputFile << "\n";
     
     inputFile.close();
@@ -33,7 +29,6 @@ int main() {
     std::string configFilename = "config.env";
     std::string outputFilename = "output.txt"; 
 
-    
     std::ifstream configFile(configFilename);
     if (!configFile.is_open()) {
         std::cerr << "Error: Could not open config file '" << configFilename << "'" << std::endl;
@@ -52,19 +47,28 @@ int main() {
     std::string sourceFileFromConfig;
     int filesProcessed = 0;
 
-  
     while (std::getline(configFile, sourceFileFromConfig)) {
         
         if (sourceFileFromConfig.empty()) {
             continue;
         }
+        
+        if (sourceFileFromConfig[0] == '#') {
+            continue;
+        }
 
         std::cout << "Processing: " << sourceFileFromConfig << std::endl;
         
-        
-        copyFileWithHeader(sourceFileFromConfig, outputFile);;
+        copyFileWithHeader(sourceFileFromConfig, outputFile);
         filesProcessed++;
+    } 
 
-    return 0;    
-}  
-}  
+    configFile.close();
+    outputFile.close();
+
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "Finished. Processed " << filesProcessed << " files." << std::endl;
+    std::cout << "All content appended to '" << outputFilename << "'." << std::endl;
+
+    return 0;
+}
