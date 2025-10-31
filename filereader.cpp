@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <stdio.h>
-#include <unistd.h>
 
 void copyFileWithHeader(const std::string& sourceFilename, std::ofstream& outputFile) {
     std::ifstream inputFile(sourceFilename);
@@ -27,11 +25,28 @@ void copyFileWithHeader(const std::string& sourceFilename, std::ofstream& output
 }
 
 
-int main() {
-    std::cout << "####Starting the program####\n" << std::endl;
-    sleep(3);
+int main(int argc, char* argv[]) {
     std::string configFilename = "config.env";
-    std::string outputFilename = "output.txt"; 
+    std::string outputFilename;
+    std::ios_base::openmode openMode = std::ios::app; 
+
+    if (argc == 2) {
+        outputFilename = argv[1];
+    } else if (argc == 3) {
+        std::string flag = argv[1];
+        if (flag == "-o") {
+            outputFilename = argv[2];
+            openMode = std::ios::trunc;
+        } else {
+            std::cerr << "Error: Unknown flag '" << flag << "'" << std::endl;
+            std::cerr << "Usage: " << argv[0] << " [-o] <output_filename>" << std::endl;
+            return 1;
+        }
+    } else {
+        std::cerr << "Error: Invalid arguments." << std::endl;
+        std::cerr << "Usage: " << argv[0] << " [-o] <output_filename>" << std::endl;
+        return 1;
+    }
 
     std::ifstream configFile(configFilename);
     if (!configFile.is_open()) {
@@ -39,14 +54,14 @@ int main() {
         return 1;
     }
 
-    std::ofstream outputFile(outputFilename, std::ios::app); 
+    std::ofstream outputFile(outputFilename, openMode); 
     if (!outputFile.is_open()) {
         std::cerr << "Error: Could not open destination file '" << outputFilename << "'" << std::endl;
         configFile.close();
         return 1;
     }
 
-    std::cout << "\n Starting to process files listed in '" << configFilename << "'..." << std::endl;
+    std::cout << "Starting to process files listed in '" << configFilename << "'..." << std::endl;
 
     std::string sourceFileFromConfig;
     int filesProcessed = 0;
@@ -72,7 +87,7 @@ int main() {
 
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Finished. Processed " << filesProcessed << " files." << std::endl;
-    std::cout << "All content appended to '" << outputFilename << "'." << std::endl;
+    std::cout << "All content written to '" << outputFilename << "'." << std::endl;
 
     return 0;
 }
