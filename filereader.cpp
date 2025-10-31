@@ -62,7 +62,9 @@ int main() {
         std::cout << "Processing: " << sourceFileFromConfig << std::endl;
         
         
-        copyFileWithHeader(sourceFileFromConfig);
+        copyFileWithHeader(sourceFileFromConfig, outputFile);;
         filesProcessed++;
+
     return 0;    
-}    
+}  
+}  
