@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <dlfcn.h>
+#include <stdio.h>
+#include <unistd.h>
 
 // This function reads the source filename from config.txt
 std::string getSourceFilename() {

@@ -7,10 +7,10 @@ CFLAGS   = -Wall -I./
 CXXFLAGS = -std=c++11 -Wall -I./
 
 # Target
-TARGET_EXEC = calc
+TARGET_EXEC = FileReader
 
 # Source files
-EXEC_SRC = calc.cpp
+EXEC_SRC = filereader.cpp
 LIB_SRC  = ladd.c
 
 # Object files
