@@ -46,7 +46,7 @@ int main() {
         return 1;
     }
 
-    std::cout << "Starting to process files listed in '" << configFilename << "'..." << std::endl;
+    std::cout << "\n Starting to process files listed in '" << configFilename << "'..." << std::endl;
 
     std::string sourceFileFromConfig;
     int filesProcessed = 0;
