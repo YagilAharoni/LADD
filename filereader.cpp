@@ -28,7 +28,7 @@ void copyFileWithHeader(const std::string& sourceFilename, std::ofstream& output
 
 
 int main() {
-    std::cout << "####Starting the program####" << std::endl;
+    std::cout << "####Starting the program####\n" << std::endl;
     sleep(3);
     std::string configFilename = "config.env";
     std::string outputFilename = "output.txt"; 
