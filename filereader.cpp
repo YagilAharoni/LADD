@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdio.h>
+#include <unistd.h>
 
 void copyFileWithHeader(const std::string& sourceFilename, std::ofstream& outputFile) {
     std::ifstream inputFile(sourceFilename);
@@ -29,7 +31,7 @@ int main(int argc, char* argv[]) {
     std::string configFilename = "config.env";
     std::string outputFilename;
     std::ios_base::openmode openMode = std::ios::app; 
-
+    sleep(3);
     if (argc == 2) {
         outputFilename = argv[1];
     } else if (argc == 3) {
