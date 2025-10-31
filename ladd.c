@@ -27,6 +27,7 @@
 #include <stdbool.h>
 #include <signal.h>
 #include <unistd.h>
+#include <pthread.h> 
 
 #ifndef PTRACE_TRACEME
 #define PTRACE_TRACEME 0
@@ -37,7 +38,9 @@ const int NOT_DEBUGGED_TRACERPID = 0;
 const char *CMDLINE_PATH = "/proc/%d/cmdline";
 const char *LD_PRELOAD = "LD_PRELOAD";
 const int DEBUGGER_PRESENT = -1;
+
 bool debugger_detected = false;
+
 inline void detectTracerPID();
 inline void detectLD_PRELOAD();
 inline void detectPtrace();
@@ -146,7 +149,7 @@ void runAntiDebugChecks()
     detectLD_PRELOAD();
     detectTracerPID();
 }
-#include <pthread.h> 
+
 // Thread function that runs the anti-debug checks
 static void *detection_thread(void *arg) {
     (void)arg;

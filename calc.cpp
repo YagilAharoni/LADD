@@ -5,26 +5,26 @@
 #include <unistd.h>
 
 using namespace std;
-#ifdef __cplusplus
-extern "C" {
-#endif
-}
 
 int main() {
     
     printf("Starting calculator...\n");
 	printf("waiting 5 seconds... \n");
+
 	sleep(5);
+
 	char op;
 	double num1;
 	double num2;
 	double result;
+
 	cout << "enter number 1: ";
 	cin >> num1; 
 	cout << "Enter either (+ - * /): ";
 	cin >> op;
 	cout << "enter number 2:";
 	cin >> num2;
+	
 	switch (op) {
 		case '+' :
 			result = num1 + num2;
