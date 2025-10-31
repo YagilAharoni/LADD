@@ -61,5 +61,9 @@ int main() {
 
         std::cout << "Processing: " << sourceFileFromConfig << std::endl;
         
-        //Call the helper function that performs the copy
+        
         copyFileWithHeader(sourceFileFromConfig
+    
+        }
+    return 0;    
+}    
