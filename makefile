@@ -3,8 +3,8 @@ CC  = gcc
 CXX = g++
 
 # Flags
-CFLAGS   = -Wall -I./
-CXXFLAGS = -std=c++11 -Wall -I./
+CFLAGS   = -Wall -I./ -fvisibility=hidden
+CXXFLAGS = -std=c++11 -Wall -I./ -fvisibility=hidden
 
 # Target
 TARGET_EXEC = FileReader
