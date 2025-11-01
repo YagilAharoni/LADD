@@ -23,7 +23,7 @@ all: $(TARGET_EXEC)
 # Build executable 
 $(TARGET_EXEC): $(EXEC_OBJ) $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $(EXEC_OBJ) $(LIB_OBJ)
-
+	strip $@
 # Compile C++ files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
