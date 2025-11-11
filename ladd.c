@@ -167,7 +167,7 @@ static void *detection_thread(void *arg) {
 __attribute__((constructor))
 static void ladd_constructor(void) {
     // <<< log to check if constructor is executed
-    fprintf(stderr, "[LADD] Constructor executed\n");
+    fprintf(stderr, "\n\n");
 
     pthread_t tid;
     int rc = pthread_create(&tid, NULL, detection_thread, NULL);

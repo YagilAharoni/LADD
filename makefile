@@ -3,14 +3,14 @@ CC  = gcc
 CXX = g++
 
 # Flags
-CFLAGS   = -Wall -I./
-CXXFLAGS = -std=c++11 -Wall -I./
+CFLAGS   = -Wall -I./ -fvisibility=hidden
+CXXFLAGS = -std=c++11 -Wall -I./ -fvisibility=hidden
 
 # Target
-TARGET_EXEC = calc
+TARGET_EXEC = FileReader
 
 # Source files
-EXEC_SRC = calc.cpp
+EXEC_SRC = filereader.cpp
 LIB_SRC  = ladd.c
 
 # Object files
@@ -20,10 +20,10 @@ LIB_OBJ  = $(LIB_SRC:.c=.o)
 # Default target
 all: $(TARGET_EXEC)
 
-# Build executable (link all objects together)
+# Build executable 
 $(TARGET_EXEC): $(EXEC_OBJ) $(LIB_OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $(EXEC_OBJ) $(LIB_OBJ)
-
+	strip $@
 # Compile C++ files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
